@@ -3,9 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="stylesheet" href="<%= BASE_URL %>css/iconfont/iconfont.css">
+    <title>beatmovie</title>
+    <style>
+      *{ margin : 0; padding : 0;}
+      ul,li{ list-style : none;}
+      img{ display : none;}
+      html,body{ height : 100%;}
+      .clearfix:after{ content : ''; display : blcok; clear : both;}
+      #main{ height: 100%; display: flex; flex-direction: column;}
+      #content{ flex: 1; overflow: auto; margin-bottom: 50px; position: relative; display: flex; flex-direction: column;}
+    </style>
   </head>
   <body>
     <noscript>
