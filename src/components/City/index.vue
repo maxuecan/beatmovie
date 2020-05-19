@@ -59,7 +59,6 @@ export default {
                         'X-Host': 'mall.film-ticket.city.list'
                 }
             }).then(res => {
-                console.log(res.data)
                 var msg = res.data.msg;
                 if(msg === "ok"){
                     //    var { citylist , hostlist } = this.handleCityArr(res.data.data.cities)

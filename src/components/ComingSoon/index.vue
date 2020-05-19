@@ -4,9 +4,9 @@
         <Scroller v-else>
             <ul>
                 <li v-for="item in datalist" :key="item.id">
-                    <div class="pic_show"><img :src="handlePath(item.img)"></div>
+                    <div class="pic_show"><img :src="handlePath(item.img)" @tap="handleToDetail(item.id)"></div>
                     <div class="info_list">
-                        <h2>{{item.nm}} <img v-if="item.version" src="@/assets/maxs.png" alt=""></h2>
+                        <h2 @tap="handleToDetail(item.id)">{{item.nm}} <img v-if="item.version" src="@/assets/maxs.png" alt=""></h2>
                         <p><span class="person">{{item.wish}}</span> 人想看</p>
                         <p>主演: {{item.star ? item.star : '暂无主演'}}</p>
                         <p>{{item.rt}}上映</p>
@@ -20,26 +20,36 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
     name : 'ComingSoon',
     data () {
         return {
             datalist : [],
-            isload : true
+            isload : true,
+            prevCityId : -1
         }
     },
-    mounted () {
-        axios.get('/ajax/comingList?ci=117&token=&limit=10&optimus_uuid=E15219D07F8A11EAB979FB7F49E68F63D530E4486E084FB09C52D73B95FCD0A2&optimus_risk_level=71&optimus_code=10').then(res =>{
-            this.datalist = res.data.coming,
-            this.isload = false
-        }).catch(err=>{
-            console.log(err)
+    activated () {
+        var cityId = this.$store.state.city.id;
+        if( this.prevCityId === cityId){ return;}
+        this.isload = true
+        this.axios.get('/api/movieComingList?cityId=' + cityId).then(res =>{
+            console.log(res.data)
+            var msg = res.data.msg;
+            if( msg === 'ok'){
+                this.datalist = res.data.data.comingList,
+                this.isload = false,
+                this.prevCityId = cityId
+            }
         })
     },
     methods : {
         handlePath (path) {
-            return path.replace('w.h','128.180')
+            return path.replace('w.h', '170.230')
+        },
+        handleToDetail(movieId){
+            this.$router.push('/movie/detail/2/'+movieId)
         }
     }
 }
