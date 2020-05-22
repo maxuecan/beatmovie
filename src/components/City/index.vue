@@ -38,16 +38,16 @@ export default {
     name : 'City',
     data () {
         return {
-            citylist : [],
+            cityList : [],
             hostlist : [],
             isload : true
         }
     },
     mounted () {
-        var citylist = window.localStorage.getItem('citylsit');
+        var cityList = window.localStorage.getItem('cityLsit');
         var hostlist = window.localStorage.getItem('hostlist')
-        if(citylist && hostlist){
-            this.citylist = JSON.parse(citylist)
+        if(cityList && hostlist){
+            this.cityList = JSON.parse(cityList)
             this.hostlist = JSON.parse(hostlist)
             this.isload = false
         }
@@ -60,11 +60,11 @@ export default {
                     //    this.citylist = citylist
                     //    this.hotlist = hostlist 
                     var cities = res.data.data.cities;
-                    var { citylist , hostlist} = this.hanldeCityArr(cities);
-                    this.citylist = citylist;
+                    var { cityList , hostlist} = this.hanldeCityArr(cities);
+                    this.cityList = cityList;
                     this.hostlist = hostlist;
                     this.isload = false;
-                    window.localStorage.setItem('citylist' , JSON.stringify(citylist));
+                    window.localStorage.setItem('citylist' , JSON.stringify(cityList));
                     window.localStorage.setItem('hostlist' , JSON.stringify(hostlist))
                 }
             })
@@ -73,7 +73,7 @@ export default {
     methods : {
         hanldeCityArr(cities){
             var arr = [];
-            var citylist = [];
+            var cityList = [];
             var hostlist = [];
             // 将Unicode编码转换为字符
             for(var i=65;i<91;i++){
@@ -88,7 +88,7 @@ export default {
             for(var j=0;j<arr.length;j++){
                 var newarr = cities.filter(item=>item.py.substring(0,1) === arr[j].toLowerCase())
                 if(!(newarr.length ===0)){
-                    citylist.push({
+                    cityList.push({
                         index:arr[j],
                         city:newarr
                     })
@@ -98,7 +98,7 @@ export default {
             // console.log(citylist)
             // console.log(hostlist)
             return {
-                citylist,
+                cityList,
                 hostlist
             }
         },
