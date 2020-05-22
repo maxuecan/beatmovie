@@ -7,7 +7,7 @@
                     <div class="city_hot">
                         <h2>热门城市</h2>
                         <ul class="clearfix">
-                            <li v-for="item in hostlist" :key="item.cityId" @tap="handleToCity(item.name , item.cityId)">{{ item.name }}</li>
+                            <li v-for="item in hostlist" :key="item.id" @tap="handleToCity(item.nm , item.id)">{{ item.nm }}</li>
                         </ul>
                     </div>
                     <div class="city_sort" ref="city_sort">
@@ -16,8 +16,8 @@
                                 {{ data.index }}
                             </h2>
                             <ul>
-                                <li v-for="item in data.city" :key="item.cityId" @tap="handleToCity(item.name , item.cityId)">
-                                    {{item.name}}
+                                <li v-for="item in data.city" :key="item.id" @tap="handleToCity(item.nm , item.id)">
+                                    {{item.nm}}
                                 </li>
                             </ul>
                         </div>
@@ -52,15 +52,10 @@ export default {
             this.isload = false
         }
         else{
-            this.axios({
-                url : 'https://m.maizuo.com/gateway?k=1090715',
-                headers : {
-                        'X-Client-Info': '{"a":"3000","ch":"1002","v":"5.0.4","e":"15872805821348619731225"}',
-                        'X-Host': 'mall.film-ticket.city.list'
-                }
-            }).then(res => {
+            this.axios.get('/api/cityList').then(res => {
                 var msg = res.data.msg;
                 if(msg === "ok"){
+                    console.log(res.data)
                     //    var { citylist , hostlist } = this.handleCityArr(res.data.data.cities)
                     //    this.citylist = citylist
                     //    this.hotlist = hostlist 
@@ -91,7 +86,7 @@ export default {
                 }
             }
             for(var j=0;j<arr.length;j++){
-                var newarr = cities.filter(item=>item.pinyin.substring(0,1) === arr[j].toLowerCase())
+                var newarr = cities.filter(item=>item.py.substring(0,1) === arr[j].toLowerCase())
                 if(!(newarr.length ===0)){
                     citylist.push({
                         index:arr[j],
