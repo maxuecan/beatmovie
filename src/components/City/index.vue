@@ -11,7 +11,7 @@
                         </ul>
                     </div>
                     <div class="city_sort" ref="city_sort">
-                        <div v-for="data in citylist" :key="data.index">
+                        <div v-for="data in cityList" :key="data.index">
                             <h2>
                                 {{ data.index }}
                             </h2>
@@ -27,7 +27,7 @@
         </div>
         <div class="city_index">
             <ul>
-                <li v-for="(item,index) in citylist" :key="item.index" @touchstart="handleToIndex(index)">{{item.index}}</li>
+                <li v-for="(item,index) in cityList" :key="item.index" @touchstart="handleToIndex(index)">{{item.index}}</li>
             </ul>
         </div>
     </div>
