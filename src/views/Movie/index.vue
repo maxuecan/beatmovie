@@ -45,9 +45,6 @@ export default {
                         content : nm,
                         cancel : '取消',
                         ok : '切换定位',
-                        // handleCancel(){
-                        //     console.log(1)
-                        // },
                         handleOk(){
                             window.localStorage.setItem('nowNm',nm);
                             window.localStorage.setItem('nowId',id);
